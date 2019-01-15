@@ -1,9 +1,23 @@
 #!/bin/bash
 . ./env.list
 
-docker run -d -p $MR_APP_PORT --rm \
---name $MR_NAME \
---mount type=bind,src=$MR_LOG_PATH,dst=/$MR_NAME/logs \
---env-file ./env.list \
-$MR_NS/$MR_NAME:latest
+if [ $1 = 'dev' ]; then
+  echo "[script] docker runs in $1 mode with -it. at port 3000"
+  docker run -it -p 3000:3000 --rm \
+  --name $MR_NAME \
+  --mount type=bind,src=$MR_LOG_PATH,dst=/$MR_NAME/volumes/logs \
+  --env-file ./env.list \
+  $MR_NS/$MR_NAME:latest dev
 
+else
+  mode='d'
+  if [ $1 = 'it' ]; then
+    mode=$1
+  fi
+  echo "[script] docker runs in production mode detached. at port $MR_APP_PORT"
+  docker run -$mode -p $MR_APP_PORT:$MR_APP_PORT --rm \
+  --name $MR_NAME \
+  --mount type=bind,src=$MR_LOG_PATH,dst=/$MR_NAME/volumes/logs \
+  --env-file ./env.list \
+  $MR_NS/$MR_NAME:latest
+fi

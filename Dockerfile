@@ -6,7 +6,7 @@ ARG MR_LOG_PATH
 ARG MR_APP_PORT
 ARG MR_SRV_PORT
 
-ENV NODE_ENV=${NODE_ENV:-production}
+ENV NODE_ENV=${NODE_ENV:-development}
 ENV MR_MS ${MR_MS:-imqx}
 ENV MR_NAME ${MR_NAME:-moerae}
 ENV MR_LOG_PATH ${MR_LOG_PATH:-/var/logs}
