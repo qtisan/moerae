@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ $1 = 'dev' ]; then
+if [ "x$1" = 'xdev' ]; then
   cd ./frontend \
   && npm run dev
 else

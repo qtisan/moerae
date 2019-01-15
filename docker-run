@@ -1,7 +1,7 @@
 #!/bin/bash
 . ./env.list
 
-if [ $1 = 'dev' ]; then
+if [ "x$1" = 'xdev' ]; then
   echo "[script] docker runs in $1 mode with -it. at port 3000"
   docker run -it -p 3000:3000 --rm \
   --name $MR_NAME \
@@ -11,7 +11,7 @@ if [ $1 = 'dev' ]; then
 
 else
   mode='d'
-  if [ $1 = 'it' ]; then
+  if [ "x$1" = 'xit' ]; then
     mode=$1
   fi
   echo "[script] docker runs in production mode detached. at port $MR_APP_PORT"
