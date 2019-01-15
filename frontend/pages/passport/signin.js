@@ -3,15 +3,12 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {
   Card, CardHeader, CardContent, CardActions,
-  Avatar, IconButton, Fab, Divider,
-  FormControl, Input, InputLabel, InputAdornment, TextField
+  Avatar, Fab, Divider, InputAdornment, TextField
 } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import NavigationIcon from '@material-ui/icons/Navigation';
 import AddIcon from '@material-ui/icons/Add';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import LockRounded from '@material-ui/icons/LockRounded';
-
 
 const styles = theme => ({
   root: {
@@ -133,7 +130,7 @@ class Signin extends React.Component {
     const update = this.bgUpdate.bind(this);
     this.intervalHandler = setInterval(function () {
       update(count, setState);
-    }, 4000);
+    }, 10000);
   }
   componentWillUnmount() {
     clearInterval(this.intervalHandler);
@@ -143,26 +140,38 @@ class Signin extends React.Component {
     const { bgIndex } = this.state;
     const bg = resolutions[bgIndex];
     return (
-      <div className={classes.root} style={{ backgroundColor: bg.color }}>
-        <img src={bg.image}
-          style={{
-            position: 'absolute',
-            width: bg.width,
-            height: bg.height,
-            marginLeft: - bg.width / 2,
-            left: '50%',
-            top: '50%',
-            marginTop: - bg.height / 2,
-            transition: 'all 1s'
-          }}
-        />
+      <div className={classes.root} style={{ backgroundColor: bg.color, transition: 'all 1s' }}>
+        {
+          resolutions.map((b, i) => (
+            <img src={b.image} key={i}
+              style={{
+                position: 'absolute',
+                width: b.width,
+                height: b.height,
+                marginLeft: - b.width / 2,
+                left: '50%',
+                top: '50%',
+                marginTop: - b.height / 2,
+                transition: 'all 1s',
+                opacity: bgIndex == i ? 1 : 0
+              }}
+            />
+          ))
+        }
         <div className={classes.maskLeft}></div>
         <div className={classes.maskRight}></div>
         <div className={classes.logoLayer}>
-          <img src={`/static/logo/logo-${bg.logoType}.svg`} style={{
-            position: 'absolute',
-            width: bg.logoWidth, left: bg.logoLeft, top: bg.logoTop
-          }} />
+          {
+            resolutions.map((b, i) => (
+              <img src={`/static/logo/logo-${b.logoType}.svg`} key={i}
+                style={{
+                  position: 'absolute',
+                  transition: 'all 1s',
+                  width: b.logoWidth, left: b.logoLeft, top: b.logoTop,
+                  opacity: bgIndex == i ? 1 : 0
+                }} />
+            ))
+          }
         </div>
         <div>
           <Card className={classes.loginPanel}>
