@@ -1,10 +1,10 @@
 #!/bin/bash
+. ./env.list
 
-docker run -d --name dev-mongo --rm \
-  -v ./volumes/devdata:/data/db \
-  -e MONGO_INITDB_ROOT_USERNAME=root \
-  -e MONGO_INITDB_ROOT_PASSWORD=toashintel \
-  -p 9917:27017
+docker run -d --name $MR_NAME-dev-mongo --rm \
+  --mount type=bind,src=$MR_MONGO_DATA_PATH,dst=/data/db \
+  -e MONGO_INITDB_ROOT_USERNAME=$MONGO_INITDB_ROOT_USERNAME \
+  -e MONGO_INITDB_ROOT_PASSWORD=$MONGO_INITDB_ROOT_PASSWORD \
+  -p $MR_MONGO_DEV_PORT:27017 \
   mongo
-&& cd frontend/
-&& npm run dev
+  

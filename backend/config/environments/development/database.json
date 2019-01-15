@@ -1,0 +1,21 @@
+{
+  "defaultConnection": "default",
+  "connections": {
+    "default": {
+      "connector": "strapi-hook-mongoose",
+      "settings": {
+        "client": "mongo",
+        "host": "127.0.0.1",
+        "srv": false,
+        "port": "9717",
+        "database": "moerae_db",
+        "username": "root",
+        "password": "toashintel"
+      },
+      "options": {
+        "authenticationDatabase": "admin",
+        "ssl": false
+      }
+    }
+  }
+}
