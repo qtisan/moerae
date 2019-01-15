@@ -1,0 +1,9 @@
+#!/bin/bash
+. ./env.list
+
+docker run -d -p $MR_APP_PORT --rm \
+--name $MR_NAME \
+--mount type=bind,src=$MR_LOG_PATH,dst=/$MR_NAME/logs \
+--env-file ./env.list \
+$MR_NS/$MR_NAME:latest
+

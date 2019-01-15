@@ -1,0 +1,36 @@
+#!/bin/bash
+. ./env.list
+info="[info] - "
+echo "$info ENVs set."
+
+fullname=$MR_NS/$MR_NAME
+iidfile=./iidfile
+version=$1
+
+if [ -s $iidfile ]; then
+  echo "$info remove the origin image. $(cat $iidfile) "
+  docker image rm $(cat $iidfile);
+fi
+
+cmd="docker build -t ${fullname}:latest"
+# create volume
+
+echo "$info start to build the image [${fullname}]..."
+if [ -n "$version" ]; then 
+  cmd=${cmd}" -t ${fullname}:${version}";
+fi
+
+for line in $(cat ./env.list);
+do
+  if [ ${line:0:1} != '#' ]; then
+    if [ $(echo $line | grep "\=") ]; then
+      echo "$info add build arg $line"
+      cmd=${cmd}" --build-arg ${line}"
+    fi
+  fi
+done
+
+cmd=${cmd}" --iidfile ${iidfile} ."
+$cmd > >(tee ./docker-build.log) 2>&1
+echo "$info build finished."
+

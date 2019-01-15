@@ -1,0 +1,10 @@
+#!/bin/bash
+
+docker run -d --name dev-mongo --rm \
+  -v ./volumes/devdata:/data/db \
+  -e MONGO_INITDB_ROOT_USERNAME=root \
+  -e MONGO_INITDB_ROOT_PASSWORD=toashintel \
+  -p 9917:27017
+  mongo
+&& cd frontend/
+&& npm run dev
