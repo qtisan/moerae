@@ -366,6 +366,7 @@ fastlane/readme.md
 .svn/
 
 ### VisualStudioCode ###
+.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json

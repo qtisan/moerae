@@ -15,7 +15,8 @@ else
     mode=$1
   fi
   echo "[script] docker runs in production mode detached. at port $MR_APP_PORT"
-  docker run -$mode -p $MR_APP_PORT:$MR_APP_PORT --rm \
+  docker run -$mode --rm \
+  -p $MR_APP_PORT:$MR_APP_PORT -p $MR_SRV_PORT:$MR_SRV_PORT
   --name $MR_NAME \
   --mount type=bind,src=$MR_LOG_PATH,dst=/$MR_NAME/volumes/logs \
   --env-file ./env.list \

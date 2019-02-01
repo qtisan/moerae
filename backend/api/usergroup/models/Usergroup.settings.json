@@ -1,0 +1,43 @@
+{
+  "connection": "default",
+  "collectionName": "user_group",
+  "info": {
+    "name": "usergroup",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "default": "",
+      "maxLength": 20,
+      "unique": true,
+      "minLength": 2,
+      "type": "string",
+      "required": true
+    },
+    "createfrom": {
+      "default": "2019-01-16T00:00:00Z",
+      "type": "date",
+      "required": true
+    },
+    "creator": {
+      "unique": true,
+      "model": "user",
+      "via": "created_groups",
+      "plugin": "users-permissions"
+    },
+    "avatar": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": true
+    },
+    "description": {
+      "default": "I am a created user group.",
+      "maxLength": 400,
+      "type": "text"
+    }
+  }
+}

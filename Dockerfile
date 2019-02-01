@@ -17,11 +17,14 @@ WORKDIR /$MR_NAME
 
 ADD . .
 RUN chmod +x . \
-  && cd frontend \
-  && npm install
+  && cd client \
+  && npm install \
+  && cd ../backend \
+  && npm install 
 
 ENTRYPOINT [ "./boot.sh" ]
 
 VOLUME /$MR_NAME/volumes/logs
 
 EXPOSE ${MR_APP_PORT:-8000}
+EXPOSE ${MR_SRV_PORT:-8337}

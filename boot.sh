@@ -1,10 +1,12 @@
 #!/bin/sh
 
 if [ "x$1" = 'xdev' ]; then
-  cd ./frontend \
+  cd ./client \
   && npm run dev
 else
-  cd ./frontend \
+  cd ./client \
   && npm run build \
-  && pm2-runtime start ./ecosystem.config.js
+  && pm2-runtime start ./ecosystem.config.js \
+  && cd ../backend \
+  && pm2-runtime start ./ecosystem.config.js 
 fi
