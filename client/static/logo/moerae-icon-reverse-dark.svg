@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="moerae" viewBox="0 0 74 74">
+    <defs>
+        <style>
+            .cls-1{fill:#303040;}.cls-2{fill:#fefefe;}.cls-3{fill:#f6f6f6;}.cls-4{fill:#6eb5cb;}
+        </style>
+    </defs>
+    <title>
+        moerae-icon-reverse-dark
+    </title>
+    <rect width="74" height="74" x="0.05" class="cls-1"/>
+    <rect width="49.06" height="26.23" x="12.47" y="23.88" class="cls-2" rx="13.11"/>
+    <path d="M27.75,28.26h18.5A8.73,8.73,0,0,1,55,37h0a8.73,8.73,0,0,1-8.73,8.73H27.75A8.73,8.73,0,0,1,19,37h0A8.73,8.73,0,0,1,27.75,28.26Z" class="cls-3"/>
+    <rect width="31.57" height="15.54" x="21.22" y="29.22" class="cls-4" rx="7.77"/>
+    <circle cx="36.77" cy="36.99" r="4.86" class="cls-2">
+        <animate attributeName="cx" begin="0s" dur="3.6s" keySplines=".8 0 .5 1; 0 0 0.6 1" keyTimes="0;0.4;0.55;0.84;0.9;1" repeatCount="indefinite" values="36.77;36.73;45;30;41;36.77"/>
+        <animate attributeName="opacity" begin="0s" dur="1.5s" keyTimes="0;1" repeatCount="indefinite" values="0.1;1"/>
+        <animateTransform attributeName="transform" begin="0s" dur="10.5s" keyTimes="0;0.85;1" repeatCount="indefinite" type="scale" values="1;1;0.19"/>
+    </circle>
+</svg>

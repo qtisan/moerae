@@ -1,14 +1,17 @@
+
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 const pkg = require('./package');
 
+const isDev = process.env.NODE_ENV === 'development';
+// modify the url in real development env. http://localhost:8081/ for example.
+const MR_HOST_URL = isDev ? 'http://dev.cc/' : process.env.MR_HOST_URL;
+const MR_APP_PORT = isDev ? 8081 : process.env.MR_APP_PORT;
+
 module.exports = {
   mode: 'universal',
-
-  /*
-  ** Headers of the page
-  */
   head: {
     title: pkg.name,
+    titleTemplate: `%s | ${pkg.description}`,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -19,47 +22,27 @@ module.exports = {
       {
         rel: 'stylesheet',
         href:
-          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
+          new URL('./google-fonts.css', MR_HOST_URL).href
       }
     ]
   },
+  server: {
+    port: MR_APP_PORT
+  },
 
-  /*
-  ** Customize the progress-bar color
-  */
-  loading: { color: '#fff' },
-
-  /*
-  ** Global CSS
-  */
+  loading: { color: '#f38711' },
   css: [
     '~/assets/style/app.styl'
   ],
-
-  /*
-  ** Plugins to load before mounting the App
-  */
   plugins: [
     '@/plugins/vuetify'
   ],
-
-  /*
-  ** Nuxt.js modules
-  */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios'
   ],
-  /*
-  ** Axios module configuration
-  */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
-
-  /*
-  ** Build configuration
-  */
   build: {
     transpile: ['vuetify/lib'],
     plugins: [new VuetifyLoaderPlugin()],
@@ -68,10 +51,6 @@ module.exports = {
         import: ['~assets/style/variables.styl']
       }
     },
-
-    /*
-    ** You can extend webpack config here
-    */
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
@@ -81,6 +60,9 @@ module.exports = {
           loader: 'eslint-loader',
           exclude: /(node_modules)/
         });
+      }
+      if (ctx.isDev) {
+        config.devtool = '#source-map';
       }
     }
   }

@@ -2,21 +2,31 @@
 
 > Moerae Client-Side App
 
-## Build Setup
+- To run the script below for debug with vscode at `nodemon`.
 
-``` bash
-# install dependencies
-$ yarn install
-
-# serve with hot reload at localhost:3000
-$ yarn run dev
-
-# build for production and launch server
-$ yarn run build
-$ yarn start
-
-# generate static project
-$ yarn run generate
+```bash
+$ npm i -g nodemon
 ```
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "nodemon",
+      "runtimeExecutable": "nodemon",
+      "cwd": "${workspaceFolder}/client",
+      "program": "${workspaceFolder}/client/server/index.js",
+      "restart": true,
+      "console": "integratedTerminal",
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "sourceMaps": true,
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}
+```
