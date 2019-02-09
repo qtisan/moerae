@@ -1,9 +1,13 @@
 #!/bin/bash
 . ./env.list
 
+# $ ./docker-run dev # run in develop mode
+# $ ./docker-run it # run in production mode with interactive
+# $ ./docker-run # run in production mode
+
 if [ "x$1" = 'xdev' ]; then
-  echo "[script] docker runs in $1 mode with -it. at port 3000"
-  docker run -it -p 3000:3000 --rm \
+  echo "[script] docker runs in $1 mode with -it. at port 8081"
+  docker run -it -p 8081:8081 --rm \
   --name $MR_NAME \
   --mount type=bind,src=$MR_LOG_PATH,dst=/$MR_NAME/volumes/logs \
   --env-file ./env.list \
@@ -16,7 +20,7 @@ else
   fi
   echo "[script] docker runs in production mode detached. at port $MR_APP_PORT"
   docker run -$mode --rm \
-  -p $MR_APP_PORT:$MR_APP_PORT -p $MR_SRV_PORT:$MR_SRV_PORT
+  -p $MR_APP_PORT:$MR_APP_PORT \
   --name $MR_NAME \
   --mount type=bind,src=$MR_LOG_PATH,dst=/$MR_NAME/volumes/logs \
   --env-file ./env.list \
