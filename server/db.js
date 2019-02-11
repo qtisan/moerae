@@ -1,9 +1,9 @@
-const MongoDB = require('mongodb');
-const MongoClient = MongoDB.MongoClient;
+import Mongolass from 'mongolass';
+import genericPool from 'generic-pool';
+import muri from 'muri';
+import { database } from '../nuxt.config.js';
+
 const debug = require('debug')('mongo');
-const genericPool = require('generic-pool');
-const muri = require('muri');
-const { database } = require('../nuxt.config.js');
 
 const defaultOptions = {
   host: 'localhost',
@@ -31,15 +31,20 @@ const genUrl = (options) => {
 };
 
 const createPool = (mongoUrl, options) => genericPool.createPool({
-  create: () => MongoClient.connect(mongoUrl, {
-    useNewUrlParser: true,
-    reconnectTries: 1
-  }),
-  destroy: client => client.close()
+  create: async () => {
+    const mongolass = new Mongolass(mongoUrl, {
+      useNewUrlParser: true,
+      reconnectTries: 1
+    });
+    await mongolass.connect();
+    return mongolass;
+  },
+  destroy: mongolass =>
+    mongolass.disconnect()
 }, options);
 
 const options = Object.assign({}, defaultOptions, database);
-const { mongoUrl, dbName } = genUrl(options);
+const { mongoUrl } = genUrl(options);
 const mongoPool = createPool(mongoUrl, options);
 
 const acquire = async () => {
@@ -49,7 +54,7 @@ const acquire = async () => {
 };
 
 const release = async (resource) => {
-  if (resource && !resource.isConnected()) {
+  if (resource && resource._client && !resource._client.isConnected()) {
     await mongoPool.destroy(resource);
   } else {
     await mongoPool.release(resource);
@@ -57,29 +62,32 @@ const release = async (resource) => {
   debug('Release one connection (min: %s, max: %s, poolSize: %s)', options.min, options.max, mongoPool.size);
 };
 
-exports.MongoDB = MongoDB;
-
 // Usage:
 // const { once } = require('./db');
 // once(async (db) => {
-//   const user = await db.collection('user').findOne({ user_id: '123' });
-//   doSomethingWith(user);
+//   const { model, Schema } = db;
+//   const UserSchema = new Schema('UserSchema', {
+//     name: { type: 'string', required: true },
+//     age: { type: 'number', default: 18 }
+//   });
+//   const User = model('User', UserSchema);
+//   const result = await User.insertOne({ name: 'nswbmw', age: 'wrong age' });
+//   doSomethingWith(result);
 // });
-exports.once = async (fn) => {
-  const _mongo = await acquire();
-  const _db = _mongo.db(dbName);
+export const once = async (fn) => {
+  const db = await acquire();
   try {
-    await fn(_db, _mongo);
+    await fn(db);
   } finally {
-    await release(_mongo);
+    await release(db);
   }
 };
-exports.middleware = () => async (ctx, next) => {
-  ctx.mongo = await acquire();
-  ctx.db = ctx.mongo.db(dbName);
+
+export const middleware = () => async (req, res, next) => {
+  req.db = await acquire();
   try {
     await next();
   } finally {
-    await release(ctx.mongo);
+    await release(req.db);
   }
 };
