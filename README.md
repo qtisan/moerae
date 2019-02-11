@@ -1,6 +1,13 @@
-# moerae-client
+# Moerae
 
-> Moerae Client-Side App
+> Moerae Application
+
+## What is it?
+
+## Dev
+```bash
+$ ./run-dev
+```
 
 - To run the script below for debug with vscode at `nodemon`.
 
@@ -30,3 +37,8 @@ $ npm i -g nodemon
   ]
 }
 ```
+
+## Deploy
+
+
+
