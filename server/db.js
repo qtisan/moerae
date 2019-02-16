@@ -1,18 +1,9 @@
 import Mongolass from 'mongolass';
 import genericPool from 'generic-pool';
 import muri from 'muri';
-import { database } from '../nuxt.config.js';
+import { env } from '../nuxt.config.js';
 
 const debug = require('debug')('mongo');
-
-const defaultOptions = {
-  host: 'localhost',
-  port: 27017,
-  db: 'test',
-  max: 100,
-  min: 1,
-  acquireTimeoutMillis: 100
-};
 
 const genUrl = (options) => {
   let mongoUrl = options.uri || options.url;
@@ -43,7 +34,14 @@ const createPool = (mongoUrl, options) => genericPool.createPool({
     mongolass.disconnect()
 }, options);
 
-const options = Object.assign({}, defaultOptions, database);
+const options = Object.assign({}, {
+  host: 'localhost',
+  port: 27017,
+  db: 'test',
+  max: 100,
+  min: 1,
+  acquireTimeoutMillis: 100
+}, env.database);
 const { mongoUrl } = genUrl(options);
 const mongoPool = createPool(mongoUrl, options);
 

@@ -1,4 +1,5 @@
 
+const { resolve } = require('fast-url-parser');
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 const _ = require('lodash');
 const pkg = require('./package');
@@ -6,6 +7,7 @@ const pkg = require('./package');
 const isDev = process.env.NODE_ENV === 'development';
 const port = isDev ? (process.env.MR_DEV_PORT || 8081) : process.env.MR_APP_PORT;
 const host = isDev ? (process.env.MR_DEV_HOST || `localhost:${port}`) : process.env.MR_HOST;
+const baseUrl = `http://${host}/`;
 
 module.exports = {
   mode: 'universal',
@@ -21,8 +23,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href:
-          new URL('./google-fonts.css', `http://${host}/`).href
+        href: resolve(baseUrl, './google-fonts.css')
       }
     ]
   },
@@ -34,15 +35,21 @@ module.exports = {
     { path: '/api', handler: '~/server/api/index.js' }
   ],
 
-  database: {
-    host: process.env.MR_MONGO_HOST || 'localhost',
-    port: process.env.MR_MONGO_PORT || 27017,
-    db: (isDev ? process.env.MR_DEV_MONGO_DBNAME : process.env.MR_MONGO_DBNAME) || 'moerae_default_db',
-    user: process.env.MR_MONGO_USERNAME || 'moerae',
-    pass: process.env.MR_MONGO_PASSWORD || 'password!@#$%'
+  env: {
+    baseUrl,
+    database: {
+      host: process.env.MR_MONGO_HOST || 'localhost',
+      port: process.env.MR_MONGO_PORT || 27017,
+      db: (isDev ? process.env.MR_DEV_MONGO_DBNAME : process.env.MR_MONGO_DBNAME) || 'moerae_default_db',
+      user: process.env.MR_MONGO_USERNAME || 'moerae',
+      pass: process.env.MR_MONGO_PASSWORD || 'password!@#$%'
+    }
   },
 
   loading: { color: '#f38711' },
+  router: {
+    middleware: 'i18n'
+  },
   transition: {
     name: 'page',
     mode: 'out-in'
@@ -52,8 +59,12 @@ module.exports = {
     '~/assets/page-transition.css'
   ],
   plugins: [
-    '@/plugins/vuetify'
+    '~/plugins/i18n',
+    '~/plugins/vuetify'
   ],
+  generate: {
+    routes: ['/']
+  },
   modules: [
     '@nuxtjs/axios'
   ],
@@ -74,20 +85,6 @@ module.exports = {
     loaders: {
       stylus: {
         import: ['~assets/style/variables.styl']
-      }
-    },
-    extend(config, ctx) {
-      // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        });
-      }
-      if (ctx.isDev) {
-        config.devtool = '#source-map';
       }
     }
   }

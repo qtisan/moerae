@@ -7,7 +7,7 @@
 export default {
   head() {
     return {
-      title: 'Root'
+      title: this.$t('home')
     };
   }
 };

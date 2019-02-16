@@ -73,6 +73,10 @@
       "error",
       "always"
     ],
+    "array-bracket-newline": [
+      "error",
+      "consistent"
+    ],
     "vue/html-self-closing": [
       "error",
       {
@@ -83,6 +87,13 @@
         },
         "svg": "always",
         "math": "always"
+      }
+    ],
+    "vue/max-attributes-per-line": [
+      6,
+      {
+        "singleline": 6,
+        "multiline": 6
       }
     ]
   }

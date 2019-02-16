@@ -1,16 +1,18 @@
 <template>
   <div>
-    <h1>Top Navi Bar</h1>
+    <TopNavi />
     <nuxt />
   </div>
 </template>
 
 <script>
+import TopNavi from '~/components/generic/TopNavi.vue';
 export default {
   layout: 'root',
+  components: { TopNavi },
   head() {
     return {
-      title: 'Management'
+      title: this.$t('manage')
     };
   }
 };

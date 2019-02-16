@@ -1,13 +1,16 @@
 
 export const state = () => ({
-  menus: [],
+  locales: ['en', 'cn'],
+  locale: 'en',
   currentUser: {},
   notifications: []
 });
 
 export const mutations = {
-  fillMenus(state, { menus }) {
-    state.menus = menus;
+  SET_LANG(state, locale) {
+    if (state.locales.indexOf(locale) !== -1) {
+      state.locale = locale;
+    }
   },
   setCurrentUser(state, { user, notifications }) {
     state.currentUser = user;
