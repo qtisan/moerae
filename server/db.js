@@ -47,13 +47,13 @@ const options = Object.assign({}, defaultOptions, database);
 const { mongoUrl } = genUrl(options);
 const mongoPool = createPool(mongoUrl, options);
 
-const acquire = async () => {
+export const acquire = async () => {
   const resource = await mongoPool.acquire();
   debug('Acquire one connection (min: %s, max: %s, poolSize: %s)', options.min, options.max, mongoPool.size);
   return resource;
 };
 
-const release = async (resource) => {
+export const release = async (resource) => {
   if (resource && resource._client && !resource._client.isConnected()) {
     await mongoPool.destroy(resource);
   } else {
@@ -63,18 +63,17 @@ const release = async (resource) => {
 };
 
 // Usage:
-// const { once } = require('./db');
+// const { once, Schema } = require('./db');
 // once(async (db) => {
-//   const { model, Schema } = db;
 //   const UserSchema = new Schema('UserSchema', {
 //     name: { type: 'string', required: true },
 //     age: { type: 'number', default: 18 }
 //   });
-//   const User = model('User', UserSchema);
+//   const User = db.model('User', UserSchema);
 //   const result = await User.insertOne({ name: 'nswbmw', age: 'wrong age' });
 //   doSomethingWith(result);
 // });
-export const once = async (fn) => {
+export const once = async (fn = () => new Promise(resolve => resolve())) => {
   const db = await acquire();
   try {
     await fn(db);
@@ -91,3 +90,7 @@ export const middleware = () => async (req, res, next) => {
     await release(req.db);
   }
 };
+
+export const model = schema => Mongolass.model(schema, require(`./schema/${schema}`));
+
+export default Mongolass;
