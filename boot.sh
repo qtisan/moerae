@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export NODE_ENV=production
+
 if [ "x$1" = 'xdev' ]; then
   npm run dev
 else

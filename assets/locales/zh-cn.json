@@ -1,4 +1,21 @@
 {
   "home": "首页",
-  "manage": "管理"
+  "manage": "管理",
+  "languages": {
+    "select": "选择语言",
+    "cn": "简体中文",
+    "en": "美国英语"
+  },
+  "dataIterator": {
+    "rowsPerPageText": "每页 {0} 项:",
+    "rowsPerPageAll": "所有",
+    "pageText": "{0}-{1}， 共 {2} 项",
+    "noResultsText": "没有查找到匹配的结果！",
+    "nextPage": "下一页",
+    "prevPage": "上一页"
+  },
+  "dataTable": {
+    "rowsPerPageText": "每页行数："
+  },
+  "noDataText": "未找到相关数据！"
 }

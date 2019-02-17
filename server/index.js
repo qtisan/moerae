@@ -1,10 +1,13 @@
 const express = require('express');
 const consola = require('consola');
 const { Nuxt, Builder } = require('nuxt');
+const cookieParser = require('cookie-parser');
 const app = express();
 
 const config = require('../nuxt.config.js');
 config.dev = !(app.env === 'production');
+
+app.use(cookieParser());
 
 async function start() {
   const nuxt = new Nuxt(config);

@@ -1,9 +1,16 @@
-export default function ({ isHMR, app, store, route, params, error, redirect }) {
+import consts from '~/assets/consts';
+const { LANG } = consts.cookies;
+
+export default function ({ isHMR, app, store, route, params, error, redirect, req, res, getCookie, setCookie }) {
   if (isHMR) return;
-  const locale = params.lang || store.state.locale;
-  if (store.state.locales.indexOf(route.fullPath.split('/')[1]) === -1) {
+  const langInCookie = getCookie(LANG);
+  const locale = langInCookie || store.state.locale;
+  const lang = params.lang || langInCookie;
+  if (store.state.locales.indexOf(params.lang) === -1) {
     return redirect(`/${locale}${route.fullPath}`);
+  } else if (lang !== locale || lang !== store.state.locale) {
+    store.commit('SET_LANG', lang);
+    setCookie(LANG, lang);
+    app.i18n.locale = lang;
   }
-  store.commit('SET_LANG', locale);
-  app.i18n.locale = store.state.locale;
 }

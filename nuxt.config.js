@@ -7,7 +7,8 @@ const pkg = require('./package');
 const isDev = process.env.NODE_ENV === 'development';
 const port = isDev ? (process.env.MR_DEV_PORT || 8081) : process.env.MR_APP_PORT;
 const host = isDev ? (process.env.MR_DEV_HOST || `localhost:${port}`) : process.env.MR_HOST;
-const baseUrl = `http://${host}/`;
+const basePath = isDev ? (process.env.MR_DEV_BASE_PATH || '/') : process.env.MR_BASE_PATH;
+const baseUrl = `http://${host}${basePath}`;
 
 module.exports = {
   mode: 'universal',
@@ -32,7 +33,7 @@ module.exports = {
     port
   },
   serverMiddleware: [
-    { path: '/api', handler: '~/server/api/index.js' }
+    { path: '/api', handler: '~server/api/index.js' }
   ],
 
   env: {
@@ -48,26 +49,30 @@ module.exports = {
 
   loading: { color: '#f38711' },
   router: {
-    middleware: 'i18n'
+    base: basePath,
+    middleware: ['cs', 'i18n']
   },
   transition: {
     name: 'page',
     mode: 'out-in'
   },
   css: [
-    '~/assets/style/app.styl',
-    '~/assets/page-transition.css'
+    '~assets/page-transition.css'
   ],
   plugins: [
-    '~/plugins/i18n',
-    '~/plugins/vuetify'
+    '~plugins/i18n',
+    '~plugins/vuetify'
   ],
   generate: {
     routes: ['/']
   },
   modules: [
+    '@nuxtjs/style-resources',
     '@nuxtjs/axios'
   ],
+  styleResources: {
+    stylus: ['~assets/stylus/main.styl']
+  },
   globalName: {
     id: globalName => `__${globalName}`,
     nuxt: globalName => `$${globalName}`,
@@ -84,7 +89,12 @@ module.exports = {
     plugins: [new VuetifyLoaderPlugin()],
     loaders: {
       stylus: {
-        import: ['~assets/style/variables.styl']
+        import: ['~assets/stylus/vars.styl']
+      }
+    },
+    extend(config, ctx) {
+      if (ctx.isDev) {
+        config.devtool = '#source-map';
       }
     }
   }

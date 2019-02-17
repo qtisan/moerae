@@ -1,7 +1,7 @@
 <template>
-  <div class="moerae-logo">
-    <img :src="src" />
-  </div>
+  <v-flex class="logo-container" :style="{ height: `${height}px` }">
+    <img :src="src" :style="{ height: `${height}px`, position: 'relative', top: `${offset}px` }" />
+  </v-flex>
 </template>
 
 <script>
@@ -9,7 +9,9 @@ import { resolve } from 'fast-url-parser';
 export default {
   props: {
     type: { type: String, default: 'main' },
-    icon: { type: Boolean, default: false }
+    icon: { type: Boolean, default: false },
+    size: { type: String, default: 'md' },
+    offset: { type: Number, default: 0 }
   },
   computed: {
     src() {
@@ -26,18 +28,27 @@ export default {
         type = 'main';
       }
       return resolve(process.env.baseUrl, `logo/moerae-${icon ? 'icon' : 'logo'}-${type}.svg`);
+    },
+    height() {
+      switch (this.size) {
+        case 'xl': return 80;
+        case 'lg': return 64;
+        case 'md': return 48;
+        case 'sm': return 32;
+        case 'xs': return 16;
+        default: break;
+      }
+      return 48;
     }
   }
 };
 </script>
 
 <style>
-.moerae-logo {
+.logo-container {
   display: inline-block;
   animation: turn 2s linear forwards 1s;
   position: relative;
   overflow: hidden;
-  height: 180px;
-  width: 245px;
 }
 </style>

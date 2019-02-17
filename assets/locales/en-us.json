@@ -1,6 +1,11 @@
 {
   "home": "Home",
   "manage": "Management",
+  "languages": {
+    "select": "Select Language",
+    "cn": "Chinese Simplified",
+    "en": "English US"
+  },
   "dataIterator": {
     "rowsPerPageText": "Items per page:",
     "rowsPerPageAll": "All",

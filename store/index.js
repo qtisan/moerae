@@ -1,4 +1,4 @@
-
+import h from '../assets/hey';
 export const state = () => ({
   locales: ['en', 'cn'],
   locale: 'en',
@@ -23,10 +23,13 @@ export const mutations = {
 };
 
 export const actions = {
-  async signin({ commit }, payload) {
+  nuxtServerInit({ commit, dispatch }, { req, res, route }) {
+    // is called before all the middlewares.
+  },
+  async signin(ctx, payload) {
     const res = await this.$axios.$get('https://jsonplaceholder.typicode.com/users/1');
     if (res) {
-      commit('setCurrentUser', { user: res });
+      ctx.commit('setCurrentUser', { user: res });
     }
   }
 };

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export NODE_ENV=development
+
 for line in $(cat ./app.env);
 do
   if [ ${line:0:1} != '#' ]; then
