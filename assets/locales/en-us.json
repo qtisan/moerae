@@ -1,6 +1,8 @@
 {
+  "name": "Moerae",
   "home": "Home",
   "manage": "Management",
+  "website": "Website",
   "languages": {
     "select": "Select Language",
     "cn": "Chinese Simplified",

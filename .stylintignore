@@ -1,0 +1,9 @@
+**/node_modules/**
+**/.nuxt/**
+**/.vscode/**
+node_modules
+*.json
+*.js
+*.md
+*.yml
+*.log

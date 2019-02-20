@@ -1,7 +1,7 @@
 <template>
-  <v-toolbar dense dark>
+  <v-toolbar dense dark class="top-navbar">
     <v-toolbar-title>
-      <Logo size="md" type="main-transparent" />
+      <Logo class="top-navbar-logo" type="main-transparent" />
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-menu :nudge-width="100" dark>

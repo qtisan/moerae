@@ -13,8 +13,6 @@ const baseUrl = `http://${host}${basePath}`;
 module.exports = {
   mode: 'universal',
   head: {
-    title: pkg.name,
-    titleTemplate: `%s | ${pkg.description}`,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -57,22 +55,16 @@ module.exports = {
     mode: 'out-in'
   },
   css: [
+    '~assets/stylus/main.styl',
     '~assets/page-transition.css'
   ],
   plugins: [
     '~plugins/i18n',
     '~plugins/vuetify'
   ],
-  generate: {
-    routes: ['/']
-  },
   modules: [
-    '@nuxtjs/style-resources',
     '@nuxtjs/axios'
   ],
-  styleResources: {
-    stylus: ['~assets/stylus/main.styl']
-  },
   globalName: {
     id: globalName => `__${globalName}`,
     nuxt: globalName => `$${globalName}`,
@@ -87,11 +79,6 @@ module.exports = {
   build: {
     transpile: ['vuetify/lib'],
     plugins: [new VuetifyLoaderPlugin()],
-    loaders: {
-      stylus: {
-        import: ['~assets/stylus/vars.styl']
-      }
-    },
     extend(config, ctx) {
       if (ctx.isDev) {
         config.devtool = '#source-map';

@@ -15,7 +15,7 @@
     "sourceType": "module"
   },
   "plugins": [
-    "ava"
+    "ava", "json"
   ],
   "extends": [
     "eslint:recommended",

@@ -1,0 +1,64 @@
+
+//MIXINS
+__map_array($arr,$n) {
+  return $arr[$n];
+}
+__is_important($imp) {
+  return ($imp ? !important : );
+}
+__pad($t = 0,$r = $t,$b = $t,$l = $r) {
+  padding: $t $r $b $l;
+}
+__mar($t = 0,$r = $t,$b = $t,$l = $r) {
+  margin: $t $r $b $l;
+}
+__pad_mar($t = 0,$r = $t,$b = $t,$l = $r) {
+  __pad($t,$r,$b,$l);
+  __mar($t,$r,$b,$l);
+}
+__pad_h($s) {
+  padding-left: $s;
+  padding-right: $s;
+}
+__pad_v($s) {
+  padding-bottom: $s;
+  padding-top: $s;
+}
+__pad_l($s) {
+  padding-left: $s;
+}
+__pad_r($s) {
+  padding-right: $s;
+}
+__pad_t($s) {
+  padding-top: $s;
+}
+__pad_b($s) {
+  padding-bottom: $s;
+}
+__mar_h($s) {
+  margin-left: $s;
+  margin-right: $s;
+}
+__mar_v($s) {
+  margin-bottom: $s;
+  margin-top: $s;
+}
+__mar_l($s) {
+  margin-left: $s;
+}
+__mar_r($s) {
+  margin-right: $s;
+}
+__mar_t($s) {
+  margin-top: $s;
+}
+__mar_b($s) {
+  margin-bottom: $s;
+}
+__full_width($imp = false) {
+  width: 100% __is_important($imp);
+}
+__full_height($imp = false) {
+  height: 100% __is_important($imp);
+}

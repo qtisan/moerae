@@ -1,6 +1,8 @@
 {
+  "name": "莫来依",
   "home": "首页",
   "manage": "管理",
+  "website": "网站",
   "languages": {
     "select": "选择语言",
     "cn": "简体中文",

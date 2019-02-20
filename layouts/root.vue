@@ -7,7 +7,8 @@
 export default {
   head() {
     return {
-      title: this.$t('home')
+      title: this.$t('home'),
+      titleTemplate: `%s | ${this.$t('name')}`
     };
   }
 };

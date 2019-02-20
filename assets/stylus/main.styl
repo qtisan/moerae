@@ -1,10 +1,69 @@
+@require "~assets/stylus/utilities";
+@require "~assets/stylus/basic.theme";
 
-.logo-container
-  background-color: $background-color.default
-  width: $left-menu-width
-  text-align: center
-  border-radius: $border-radius
+html {
+  __full_height();
+}
+body {
+  __pad_mar();
+  __full_width();
+  __full_height();
 
+  background-color: $background-color.default;
+}
+.top-navbar {
+  height: $top-navbar-height;
+  position: fixed;
+  top: 0;
+  z-index: $layer-top-10;
 
-// import the app style default.
-@import '~vuetify/src/stylus/app.styl'
+  __elevation(0,true);
+
+  .v-toolbar__content {
+    __pad_h($top-navbar-content-padding);
+
+    .v-toolbar__title {
+      align-self: flex-start;
+      line-height: ($top-navbar-height / 4);
+      .top-navbar-logo {
+        align-items: center;
+        background-color: $background-color.paper;
+        display: flex;
+        height: $top-navbar-logo-container-height;
+        justify-content: center;
+        width: $top-navbar-logo-width;
+        img {
+          height: $top-navbar-logo-height;
+        }
+      }
+    }
+  }
+}
+.left-menu-warpper {
+  __full_height();
+
+  background-color: $background-color.paper;
+  left: $top-navbar-content-padding;
+  overflow-y: scroll;
+  padding-top: $top-navbar-logo-container-height;
+  position: fixed;
+  top: 0;
+  width: $top-navbar-logo-width;
+  z-index: $layer-top-9;
+  .theme--light.v-list .v-list__group--active:before, .theme--light.v-list .v-list__group--active:after {
+    background: none;
+  }
+  .left-menu-admin {
+    height: unset !important;
+
+    __mar_b($top-navbar-logo-container-height * 1.5);
+  }
+}
+.container-admin {
+  __mar_l($container-left-margin);
+  __pad($container-padding);
+
+  .content-warpper {
+    border: solid 1px #f00;
+  }
+}
