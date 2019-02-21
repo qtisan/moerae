@@ -62,3 +62,30 @@ __full_width($imp = false) {
 __full_height($imp = false) {
   height: 100% __is_important($imp);
 }
+__bg($b) {
+  background: $b;
+}
+__bg_color($c) {
+  background-color: $c;
+}
+__as_class($ob,$prop = background-color) {
+  for $c,$s in $ob {
+    for $k,$v in $s {
+      .{$c}-{$k} {
+        {$prop}: $v;
+      }
+    }
+  }
+}
+__with_base($c) {
+  $_re = {
+    base: $c
+  };
+
+  for $n in (1 .. 9) {
+    $_re["darken-" + $n] = darken($c,($n * 10) %);
+    $_re["lighten-" + $n] = lighten($c,($n * 10) %);
+  }
+
+  return $_re;
+}

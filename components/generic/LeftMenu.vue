@@ -15,7 +15,7 @@
         prepend-icon="account_circle"
         value="true"
       >
-        <v-list-tile slot="activator">
+        <v-list-tile slot="activator" ripple>
           <v-list-tile-title>Users</v-list-tile-title>
         </v-list-tile>
 
@@ -24,7 +24,7 @@
           sub-group
           value="true"
         >
-          <v-list-tile slot="activator">
+          <v-list-tile slot="activator" ripple>
             <v-list-tile-title>Admin</v-list-tile-title>
           </v-list-tile>
 
@@ -64,6 +64,7 @@
 <script>
 export default {
   data: () => ({
+    // TODO: with Subheader component integrated.
     admins: [['Management', 'people_outline'], ['Settings', 'settings'], ['Settings', 'settings']],
     cruds: [
       ['Create', 'add'],

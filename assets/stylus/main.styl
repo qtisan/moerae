@@ -8,32 +8,49 @@ body {
   __pad_mar();
   __full_width();
   __full_height();
-
-  background-color: $background-color.default;
+  __bg_color($background-color.default);
 }
-.top-navbar {
-  height: $top-navbar-height;
-  position: fixed;
-  top: 0;
-  z-index: $layer-top-10;
+.v-toolbar {
+  &.top-navbar {
+    height: $top-navbar-height;
+    position: fixed;
+    top: 0;
+    z-index: $layer-top-10;
 
-  __elevation(0,true);
+    __elevation(0,true);
 
-  .v-toolbar__content {
+    .top-navbar-logo {
+      __mar_l((- $size-xxs));
+
+      align-items: center;
+      display: flex;
+      height: $top-navbar-logo-container-height;
+      justify-content: center;
+      width: $top-navbar-logo-width;
+      img {
+        height: $top-navbar-logo-height;
+      }
+    }
+  }
+  &__content {
     __pad_h($top-navbar-content-padding);
 
-    .v-toolbar__title {
+    &__title {
       align-self: flex-start;
       line-height: ($top-navbar-height / 4);
-      .top-navbar-logo {
-        align-items: center;
-        background-color: $background-color.paper;
-        display: flex;
-        height: $top-navbar-logo-container-height;
-        justify-content: center;
-        width: $top-navbar-logo-width;
-        img {
-          height: $top-navbar-logo-height;
+    }
+    .v-tabs {
+      &__bar {
+      }
+      &__container {
+        ^[-1]__slider {
+          __bg_color($primary-color.base);
+        }
+      }
+      &__div {
+        position: relative;
+        & ^[-2..-2]__item--active {
+          __bg_color($secondary-color.base);
         }
       }
     }
@@ -41,29 +58,89 @@ body {
 }
 .left-menu-warpper {
   __full_height();
+  __bg_color($background-color.paper);
 
-  background-color: $background-color.paper;
   left: $top-navbar-content-padding;
   overflow-y: scroll;
   padding-top: $top-navbar-logo-container-height;
   position: fixed;
   top: 0;
-  width: $top-navbar-logo-width;
+  width: $left-menu-width;
   z-index: $layer-top-9;
-  .theme--light.v-list .v-list__group--active:before, .theme--light.v-list .v-list__group--active:after {
-    background: none;
-  }
   .left-menu-admin {
     height: unset !important;
 
     __mar_b($top-navbar-logo-container-height * 1.5);
+
+    .v-list {
+      &__group {
+        &__header {
+          __pad_h($size-xs);
+
+          &__prepend-icon {
+            __pad();
+            __mar();
+
+            min-width: ($top-navbar-logo-width / 7);
+          }
+          & ^[-3..-3]__tile {
+            __pad();
+          }
+          &:hover, ^[-2]__tile:hover {
+            __bg_color($primary-color.base !important);
+
+            &, .v-icon {
+              color: $text-inverse-color.primary;
+            }
+          }
+          &--sub-group, &--active, ^[-1]--active {
+            __bg_color($background-color.primary);
+
+            &:before, &:after {
+              __bg(none !important);
+            }
+          }
+        }
+        &__items {
+          __bg_color($background-color.secondary);
+
+          cursor: pointer;
+        }
+      }
+      &__tile {
+        __pad_h($size-xs);
+
+        &__action {
+          min-width: ($top-navbar-logo-width / 7);
+        }
+        &__title {
+        }
+      }
+    }
   }
 }
 .container-admin {
-  __mar_l($container-left-margin);
+  __mar($container-top-margin,0,0,$container-left-margin);
   __pad($container-padding);
 
   .content-warpper {
     border: solid 1px #f00;
   }
+}
+::-webkit-scrollbar {
+  border-radius: 3px !important;
+  height: 8px !important;
+  width: 0 !important;
+}
+::-webkit-scrollbar-track {
+  border-radius: 3px !important;
+  box-shadow: none !important;
+}
+::-webkit-scrollbar-thumb {
+  background: #ddd !important;
+  border-radius: 3px !important;
+  box-shadow: none !important;
+}
+.with-scroll::-webkit-scrollbar {
+  width: 5px !important;
 }

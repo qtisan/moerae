@@ -1,45 +1,23 @@
 @require "~assets/stylus/utilities";
 
-$primary-color = {
-  base: #3F3D56,
-  lighten-1: #7C7CA3,
-  darken-1: #38384D
-};
-$secondary-color = {
-  base: #0E84A8,
-  lighten-1: #6EB5CB,
-  darken-1: #074254
-};
-$error-color = {
-  base: #D32F2F,
-  lighten-1: #EA8F8F,
-  darken-1: #9E2323
-};
-$success-color = {
-  base: #33A25F,
-  lighten-1: #99D1AF,
-  darken-1: #006829
-};
-$info-color = {
-  base: #2979FF,
-  lighten-1: #7FAFFF,
-  darken-1: #1F5BBF
-};
-$warning-color = {
-  base: #FB8C00,
-  lighten-1: #FDBA66,
-  darken-1: #BC6900
-};
-$banana-color = {
-  base: #E9C939,
-  lighten-1: #F4E49C,
-  darken-1: #AA8C06
-};
+$primary-color = __with_base(#3F3D56);
+$secondary-color = __with_base(#0E84A8);
+$error-color = __with_base(#D32F2F);
+$success-color = __with_base(#33A25F);
+$info-color = __with_base(#2979FF);
+$warning-color = __with_base(#FB8C00);
+$banana-color = __with_base(#E9C939);
 $text-color = {
   primary: #030A10,
   secondary: rgba(3,10,16,0.54),
   disabled: rgba(3,10,16,0.38),
-  hint: rgba(3,10,16,0.38)
+  hint: rgba(3,10,16,0.16)
+};
+$text-inverse-color = {
+  primary: #FCFEFF,
+  secondary: rgba(252,254,255,0.54),
+  disabled: rgba(252,254,255,0.38),
+  hint: rgba(252,254,255,0.16)
 };
 $default-color = {
   black: #030A10,
@@ -47,21 +25,29 @@ $default-color = {
 };
 $background-color = {
   paper: #FEFEFE,
-  default: #F6F6F6
+  default: #F6F6F6,
+  primary: #F8F9FA,
+  secondary: #F2F3F4
 };
 $theme ?= {
-  primary: $primary-color.base,
-  accent: $banana-color.base,
-  secondary: $secondary-color.base,
-  info: $info-color.base,
-  warning: $warning-color.base,
-  error: $error-color.base,
-  success: $success-color.base
+  pr: $primary-color,
+  ac: $banana-color,
+  se: $secondary-color,
+  fo: $info-color,
+  wa: $warning-color,
+  er: $error-color,
+  ss: $success-color,
+  bn: $banana-color,
+  tx: $text-color,
+  ti: $text-inverse-color,
+  de: $default-color,
+  bg: $background-color
 };
+__as_class($theme);
 //===========================
 //generic variables
-//===========================
 $size-xxs = 16px;
+//===========================
 $size-xs = 24px;
 $size-sm = 32px;
 $size-md = 48px;
@@ -94,12 +80,13 @@ __elevationTransition($duration = 280ms,$easing = cubic-bezier(0.4,0,0.2,1)) {
 }
 
 //===========================
-//theme featured variables
-//===========================
 $top-navbar-height = $size-md;
 $top-navbar-content-padding = $size-xs;
-$top-navbar-logo-width = 260px;
+//===========================
+$top-navbar-logo-width = $left-menu-width;
 $top-navbar-logo-height = $top-navbar-height;
-$top-navbar-logo-container-height = 80px; //$top-navbar-height;
-$container-left-margin = $top-navbar-content-padding + $top-navbar-logo-width;
+$top-navbar-logo-container-height = $top-navbar-height;
+$left-menu-width = 260px;
+$container-left-margin = $top-navbar-content-padding + $left-menu-width;
+$container-top-margin = $top-navbar-height;
 $container-padding = $size-xs;
