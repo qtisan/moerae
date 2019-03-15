@@ -5,8 +5,10 @@
     </v-toolbar-title>
     <v-flex md8>
       <v-tabs dark>
-        <v-tab v-for="nav in navs" :key="nav.id" :to="nav.path">
-          <v-icon>{{ nav.icon }}</v-icon>
+        <v-tab v-for="nav in navs" :key="nav.id" exact nuxt :to="$path(nav.path)">
+          <v-icon>
+            {{ nav.icon }}
+          </v-icon>
           {{ nav.name }}
         </v-tab>
       </v-tabs>
@@ -46,7 +48,7 @@ export default {
         id: '1',
         name: 'Home',
         icon: 'home',
-        path: '/manage/dashboard'
+        path: '/manage/home'
       }, {
         id: '2',
         name: 'Users',
@@ -69,7 +71,7 @@ export default {
   methods: {
     changeLanguage(lang) {
       this.$router.replace(
-        ['', lang].concat(this.$route.fullPath.split('/').slice(2)).join('/')
+        ['', lang, ...this.$route.fullPath.split('/').slice(2)].join('/')
       );
     }
   }

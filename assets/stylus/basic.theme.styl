@@ -27,7 +27,7 @@ $background-color = {
   paper: #FEFEFE,
   default: #F6F6F6,
   primary: #F8F9FA,
-  secondary: #F2F3F4
+  secondary: #F2F4F6
 };
 $theme ?= {
   pr: $primary-color,
@@ -46,8 +46,10 @@ $theme ?= {
 __as_class($theme);
 //===========================
 //generic variables
+$size-5xs = 9px;
+$size-4xs = 12px;
+$size-3xs = 14px;
 $size-xxs = 16px;
-//===========================
 $size-xs = 24px;
 $size-sm = 32px;
 $size-md = 48px;
@@ -86,6 +88,7 @@ $top-navbar-content-padding = $size-xs;
 $top-navbar-logo-width = $left-menu-width;
 $top-navbar-logo-height = $top-navbar-height;
 $top-navbar-logo-container-height = $top-navbar-height;
+$top-navbar-tab-pixel = $size-3xs;
 $left-menu-width = 260px;
 $container-left-margin = $top-navbar-content-padding + $left-menu-width;
 $container-top-margin = $top-navbar-height;

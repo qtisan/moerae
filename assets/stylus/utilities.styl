@@ -68,11 +68,20 @@ __bg($b) {
 __bg_color($c) {
   background-color: $c;
 }
+__rad($x) {
+  border-radius: $x;
+}
 __as_class($ob,$prop = background-color) {
   for $c,$s in $ob {
-    for $k,$v in $s {
-      .{$c}-{$k} {
-        {$prop}: $v;
+    if typeof($ob) == "object" {
+      for $k,$v in $s {
+        .{$c}-{$k} {
+          {$prop}: $v;
+        }
+      }
+    } else {
+      .{$c} {
+        {$prop}: $s;
       }
     }
   }
@@ -83,8 +92,8 @@ __with_base($c) {
   };
 
   for $n in (1 .. 9) {
-    $_re["darken-" + $n] = darken($c,($n * 10) %);
-    $_re["lighten-" + $n] = lighten($c,($n * 10) %);
+    $_re["darken-" + $n] = darken($c,percentage(($n / 10)));
+    $_re["lighten-" + $n] = lighten($c,percentage(($n / 10)));
   }
 
   return $_re;

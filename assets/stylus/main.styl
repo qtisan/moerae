@@ -8,7 +8,7 @@ body {
   __pad_mar();
   __full_width();
   __full_height();
-  __bg_color($background-color.default);
+  __bg_color($theme.bg.default);
 }
 .v-toolbar {
   &.top-navbar {
@@ -40,17 +40,25 @@ body {
       line-height: ($top-navbar-height / 4);
     }
     .v-tabs {
-      &__bar {
+      ^[-2].theme--dark &__bar.theme--dark {
+        __bg_color(transparent);
       }
       &__container {
-        ^[-1]__slider {
-          __bg_color($primary-color.base);
-        }
       }
       &__div {
         position: relative;
+        .v-icon {
+          __mar_r(($top-navbar-tab-pixel / 4));
+
+          font-size: ($top-navbar-tab-pixel * 1.4);
+        }
         & ^[-2..-2]__item--active {
-          __bg_color($secondary-color.base);
+          font-size: ($top-navbar-tab-pixel * 0.8);
+          height: $top-navbar-tab-pixel * 2;
+
+          __bg_color($theme.se.base);
+          __rad($top-navbar-tab-pixel);
+          __pad(0,$top-navbar-tab-pixel);
         }
       }
     }
@@ -58,7 +66,7 @@ body {
 }
 .left-menu-warpper {
   __full_height();
-  __bg_color($background-color.paper);
+  __bg_color($theme.bg.paper);
 
   left: $top-navbar-content-padding;
   overflow-y: scroll;
@@ -87,14 +95,14 @@ body {
             __pad();
           }
           &:hover, ^[-2]__tile:hover {
-            __bg_color($primary-color.base !important);
+            __bg_color($theme.pr.base !important);
 
             &, .v-icon {
-              color: $text-inverse-color.primary;
+              color: $theme.ti.primary;
             }
           }
           &--sub-group, &--active, ^[-1]--active {
-            __bg_color($background-color.primary);
+            __bg_color($theme.bg.primary);
 
             &:before, &:after {
               __bg(none !important);
@@ -102,7 +110,7 @@ body {
           }
         }
         &__items {
-          __bg_color($background-color.secondary);
+          __bg_color($theme.bg.secondary);
 
           cursor: pointer;
         }

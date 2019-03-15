@@ -90,7 +90,7 @@
       }
     ],
     "vue/max-attributes-per-line": [
-      6,
+      2,
       {
         "singleline": 6,
         "multiline": 6
