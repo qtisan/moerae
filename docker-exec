@@ -1,4 +1,4 @@
 #!/bin/bash
-. ./app.env
+. ./.env
 
 docker exec -it $MR_NAME $*

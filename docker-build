@@ -1,5 +1,5 @@
 #!/bin/bash
-. ./app.env
+. ./.env
 info="[info] - "
 echo "$info ENVs set."
 
@@ -20,7 +20,7 @@ if [ -n "$version" ]; then
   cmd=${cmd}" -t ${fullname}:${version}";
 fi
 
-for line in $(cat ./app.env);
+for line in $(cat ./.env);
 do
   if [ ${line:0:1} != '#' ]; then
     if [ $(echo $line | grep "\=") ]; then

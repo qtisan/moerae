@@ -1,5 +1,12 @@
 @require "~assets/stylus/utilities";
 
+html, body {
+  font-size: 10px;
+}
+.root {
+  font-size: 1.4rem;
+}
+
 $primary-color = __with_base(#3F3D56);
 $secondary-color = __with_base(#0E84A8);
 $error-color = __with_base(#D32F2F);
@@ -46,16 +53,16 @@ $theme ?= {
 __as_class($theme);
 //===========================
 //generic variables
-$size-5xs = 9px;
-$size-4xs = 12px;
-$size-3xs = 14px;
-$size-xxs = 16px;
-$size-xs = 24px;
-$size-sm = 32px;
-$size-md = 48px;
-$size-lg = 64px;
-$size-xl = 80px;
-$size-xxl = 108px;
+$size-5xs = 0.9rem;
+$size-4xs = 1.2rem;
+$size-3xs = 1.4rem;
+$size-xxs = 1.6rem;
+$size-xs = 2.4rem;
+$size-sm = 3.2rem;
+$size-md = 4.8rem;
+$size-lg = 6.4rem;
+$size-xl = 8rem;
+$size-xxl = 10.8rem;
 $layer-top-10 = 100;
 $layer-top-9 = 90;
 $layer-top-8 = 80;
@@ -89,7 +96,7 @@ $top-navbar-logo-width = $left-menu-width;
 $top-navbar-logo-height = $top-navbar-height;
 $top-navbar-logo-container-height = $top-navbar-height;
 $top-navbar-tab-pixel = $size-3xs;
-$left-menu-width = 260px;
+$left-menu-width = 26rem;
 $container-left-margin = $top-navbar-content-padding + $left-menu-width;
 $container-top-margin = $top-navbar-height;
 $container-padding = $size-xs;

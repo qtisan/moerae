@@ -4,6 +4,7 @@ const { Nuxt, Builder } = require('nuxt');
 const cookieParser = require('cookie-parser');
 const app = express();
 
+require('dotenv').config({ path: require('path').join(__dirname, '../.env') });
 const config = require('../nuxt.config.js');
 config.dev = !(app.env === 'production');
 

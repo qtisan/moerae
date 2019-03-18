@@ -2,6 +2,7 @@
 const { resolve } = require('fast-url-parser');
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 const _ = require('lodash');
+const consola = require('consola');
 const pkg = require('./package');
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -63,7 +64,8 @@ module.exports = {
     '~plugins/vuetify'
   ],
   modules: [
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/apollo'
   ],
   globalName: {
     id: globalName => `__${globalName}`,
@@ -73,15 +75,38 @@ module.exports = {
     readyCallback: globalName => `on${_.capitalize(globalName)}Ready`,
     loadedCallback: globalName => `_on${_.capitalize(globalName)}Loaded`
   },
-  axios: {
-    // See https://github.com/nuxt-community/axios-module#options
-  },
   build: {
     transpile: ['vuetify/lib'],
     plugins: [new VuetifyLoaderPlugin()],
     extend(config, ctx) {
       if (ctx.isDev) {
         config.devtool = '#source-map';
+      }
+    }
+  },
+  axios: {
+    // See https://github.com/nuxt-community/axios-module#options
+  },
+  apollo: {
+    tokenName: `${pkg.name}-apollo-token`,
+    tokenExpires: 10, // optional, default: 7 (days)
+    includeNodeModules: true, // optional, default: false (this includes graphql-tag for node_modules folder)
+    authenticationType: 'Basic', // optional, default: 'Bearer'
+    errorHandler(error) {
+      consola.error('%cError', 'background: red; color: white; padding: 2px 4px; border-radius: 3px; font-weight: bold;', error.message);
+    },
+    clientConfigs: {
+      default: {
+        httpEndpoint: baseUrl,
+        // See https://www.apollographql.com/docs/link/links/http.html#options
+        httpLinkOptions: {
+          uri: '/api',
+          credentials: 'same-origin',
+          headers: {
+            'Accept-Encoding': 'gzip'
+          }
+        },
+        tokenName: `${pkg.name}-apollo-token`
       }
     }
   }

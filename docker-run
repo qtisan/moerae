@@ -1,5 +1,5 @@
 #!/bin/bash
-. ./app.env
+. ./.env
 
 # $ ./docker-run dev # run in develop mode
 # $ ./docker-run it # run in production mode with interactive
@@ -10,7 +10,7 @@ if [ "x$1" = 'xdev' ]; then
   docker run -it -p 8081:8081 --rm \
   --name $MR_NAME \
   --mount type=bind,src=$MR_LOG_PATH,dst=/$MR_NAME/volumes/logs \
-  --env-file ./app.env \
+  --env-file ./.env \
   $MR_NS/$MR_NAME:latest dev
 
 else
@@ -23,6 +23,6 @@ else
   -p $MR_APP_PORT:$MR_APP_PORT \
   --name $MR_NAME \
   --mount type=bind,src=$MR_LOG_PATH,dst=/$MR_NAME/volumes/logs \
-  --env-file ./app.env \
+  --env-file ./.env \
   $MR_NS/$MR_NAME:latest
 fi
