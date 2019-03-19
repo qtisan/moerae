@@ -1,4 +1,4 @@
-import h from '../assets/hey';
+
 export const state = () => ({
   locales: ['en', 'cn'],
   locale: 'en',

@@ -9,14 +9,26 @@
         <p v-if="currentUser.id">
           TEL: <em>{{ currentUser.phone }}</em>
         </p>
+        <p>{{ status }}</p>
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 <script>
 import { mapActions, mapState } from 'vuex';
+import gql from 'graphql-tag';
 
 export default {
+  apollo: {
+    status: gql`{ 
+      status 
+    }`
+  },
+  data() {
+    return {
+      status: ''
+    };
+  },
   computed: {
     ...mapState(['currentUser'])
   },

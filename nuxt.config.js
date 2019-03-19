@@ -42,7 +42,9 @@ module.exports = {
       port: process.env.MR_MONGO_PORT || 27017,
       db: (isDev ? process.env.MR_DEV_MONGO_DBNAME : process.env.MR_MONGO_DBNAME) || 'moerae_default_db',
       user: process.env.MR_MONGO_USERNAME || 'moerae',
-      pass: process.env.MR_MONGO_PASSWORD || 'password!@#$%'
+      pass: process.env.MR_MONGO_PASSWORD || 'password!@#$%',
+      max: 100,
+      min: 1
     }
   },
 
@@ -78,14 +80,16 @@ module.exports = {
   build: {
     transpile: ['vuetify/lib'],
     plugins: [new VuetifyLoaderPlugin()],
+    devtools: isDev,
     extend(config, ctx) {
       if (ctx.isDev) {
-        config.devtool = '#source-map';
+        config.devtool = 'source-map';
+        // config.devtool = 'eval-source-map';
       }
     }
   },
   axios: {
-    // See https://github.com/nuxt-community/axios-module#options
+    baseURL: baseUrl
   },
   apollo: {
     tokenName: `${pkg.name}-apollo-token`,
@@ -98,9 +102,8 @@ module.exports = {
     clientConfigs: {
       default: {
         httpEndpoint: baseUrl,
-        // See https://www.apollographql.com/docs/link/links/http.html#options
         httpLinkOptions: {
-          uri: '/api',
+          uri: resolve(baseUrl, './api'),
           credentials: 'same-origin',
           headers: {
             'Accept-Encoding': 'gzip'

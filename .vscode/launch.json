@@ -8,6 +8,7 @@
       "runtimeExecutable": "nodemon",
       "cwd": "${workspaceFolder}",
       "program": "${workspaceFolder}/server/index.js",
+      "args": ["--watch", "server"],
       "restart": true,
       "console": "integratedTerminal",
       "env": {
