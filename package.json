@@ -16,9 +16,10 @@
     "framework",
     "skeleton",
     "nodejs",
-    "express"
+    "express",
+    "apollo",
+    "vuetify"
   ],
-  "license": "ISC",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
     "build": "nuxt build",
@@ -26,11 +27,12 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
-    "test": "ava"
+    "test": "cross-env NODE_ENV=test jest"
   },
   "bugs": {
     "url": "https://github.com/qtisan/moerae/issues"
   },
+  "license": "ISC",
   "homepage": "https://github.com/qtisan/moerae#readme",
   "engines": {
     "node": ">=8.9.4"
@@ -65,18 +67,23 @@
     "vue-server-renderer": "^2.6.6",
     "vuetify": "^1.5.1",
     "vuetify-loader": "^1.2.1",
-    "vuex": "^3.1.0"
+    "vuex": "^3.1.0",
+    "walk": "^2.3.14"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.1",
     "@babel/register": "^7.4.0",
     "@kazupon/vue-i18n-loader": "^0.3.0",
     "@nuxtjs/eslint-config": "^0.0.1",
     "@nuxtjs/style-resources": "^0.1.2",
     "@starptech/prettyhtml-formatter": "^0.8.16",
+    "@vue/cli-shared-utils": "^3.5.1",
     "@vue/test-utils": "^1.0.0-beta.27",
-    "ava": "^1.2.1",
     "babel": "^6.23.0",
     "babel-eslint": "^8.2.1",
+    "babel-jest": "^24.5.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "braces": "^2.3.2",
     "browser-env": "^3.2.5",
     "eslint": "^5.0.1",
@@ -92,6 +99,7 @@
     "eslint-plugin-promise": ">=4.0.1",
     "eslint-plugin-standard": ">=4.0.0",
     "eslint-plugin-vue": "^5.0.0",
+    "jest": "^24.5.0",
     "nodemon": "^1.18.9",
     "prettier": "^1.16.4",
     "require-extension-hooks": "^0.3.3",

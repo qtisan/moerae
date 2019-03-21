@@ -1,52 +1,52 @@
-import test from 'ava';
+
 import {
   camelToHyphenate, camelToUnderscore, underscoreToCamel,
   underscoreToHyphenate, hyphenateToCamel, hyphenateToUnderscore
-} from '../../../lib/utilities/conversion';
-import { isCnNewID } from '../../../lib/utilities/social';
-import { toTree } from '../../../lib/utilities/tree';
+} from '../../lib/utilities/conversion';
+import { isCnNewID } from '../../lib/utilities/social';
+import { toTree } from '../../lib/utilities/tree';
 
-test('camelToHyphenate', (t) => {
+test('camelToHyphenate', () => {
   const cth = camelToHyphenate('sayHelloWorld');
-  t.is(cth, 'say-hello-world');
+  expect(cth).toBe('say-hello-world');
 });
-test('camelToUnderscore', (t) => {
+test('camelToUnderscore', () => {
   const ctu = camelToUnderscore('sayHelloWorld');
-  t.is(ctu, 'say_hello_world');
+  expect(ctu).toBe('say_hello_world');
 });
 
-test('underscoreToCamel', (t) => {
+test('underscoreToCamel', () => {
   const ctu = underscoreToCamel('say_hello_world');
-  t.is(ctu, 'sayHelloWorld');
+  expect(ctu).toBe('sayHelloWorld');
 });
-test('underscoreToHyphenate', (t) => {
+test('underscoreToHyphenate', () => {
   const ctu = underscoreToHyphenate('say_hello_world');
-  t.is(ctu, 'say-hello-world');
+  expect(ctu).toBe('say-hello-world');
 });
 
-test('hyphenateToCamel', (t) => {
+test('hyphenateToCamel', () => {
   const ctu = hyphenateToCamel('say-hello-world');
-  t.is(ctu, 'sayHelloWorld');
+  expect(ctu).toBe('sayHelloWorld');
 });
-test('hyphenateToUnderscore', (t) => {
+test('hyphenateToUnderscore', () => {
   const ctu = hyphenateToUnderscore('say-hello-world');
-  t.is(ctu, 'say_hello_world');
+  expect(ctu).toBe('say_hello_world');
 });
 
-test('isCnNewID', (t) => {
+test('isCnNewID', () => {
   const correctID = isCnNewID('330382198608110018');
   const uncorrectID1 = isCnNewID('231243252343');
   const uncorrectID2 = isCnNewID('320105199909090033');
   const uncorrectID3 = isCnNewID('510492177702310939');
   const uncorrectID4 = isCnNewID('999999999999999999999');
-  t.true(correctID);
-  t.false(uncorrectID1);
-  t.false(uncorrectID2);
-  t.false(uncorrectID3);
-  t.false(uncorrectID4);
+  expect(correctID).toBeTruthy();
+  expect(uncorrectID1).toBeFalsy();
+  expect(uncorrectID2).toBeFalsy();
+  expect(uncorrectID3).toBeFalsy();
+  expect(uncorrectID4).toBeFalsy();
 });
 
-test('toTree', (t) => {
+test('toTree', () => {
   const table = [{
     id: 1,
     name: 'zhang san'
@@ -67,7 +67,7 @@ test('toTree', (t) => {
     parent_id: 2
   }];
   const converted = toTree(table);
-  t.true(converted.length === 2);
-  t.true(converted.find(p => p.name === 'zhang san').children.length === 2);
-  t.true(converted.find(p => p.name === 'li si').children[0].name === 'li xiao si');
+  expect(converted.length === 2).toBeTruthy();
+  expect(converted.find(p => p.name === 'zhang san').children.length === 2).toBeTruthy();
+  expect(converted.find(p => p.name === 'li si').children[0].name).toBe('li xiao si');
 });

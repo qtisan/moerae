@@ -1,29 +1,14 @@
 
-import { readdirSync } from 'fs';
 import { join } from 'path';
-import consola from 'consola';
 import { resolve } from 'fast-url-parser';
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
+import { loadSchema } from './schema';
 
 const api = express();
 const schemaDir = join(__dirname, '../graphql/schema');
-let typeDefs = [];
-let resolverDefs = {};
 
-consola.info('[graphql] - start loading schemas.');
-readdirSync(schemaDir)
-  .filter(dir => dir.indexOf('.') < 0)
-  .forEach((dir) => {
-    consola.info(`[graphql] - load schema <${dir}>`);
-    const { resolvers, types } = require(join(schemaDir, dir));
-    resolverDefs = Object.assign(resolverDefs, resolvers);
-    if (types instanceof Array) {
-      typeDefs = [...typeDefs, ...types];
-    } else {
-      typeDefs.push(types);
-    }
-  });
+const { typeDefs, resolverDefs } = loadSchema(schemaDir);
 
 const cfg = require('../../nuxt.config').apollo.clientConfigs.default;
 
