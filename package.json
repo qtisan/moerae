@@ -4,6 +4,21 @@
   "description": "Moerae Application",
   "author": "Saul QIAN <qtisan@hotmail.com>",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qtisan/moerae.git"
+  },
+  "keywords": [
+    "nuxt",
+    "graphql",
+    "vue",
+    "ssr",
+    "framework",
+    "skeleton",
+    "nodejs",
+    "express"
+  ],
+  "license": "ISC",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
     "build": "nuxt build",
@@ -11,20 +26,24 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
-    "test": "cross-env NODE_ENV=test ava"
+    "test": "ava"
   },
+  "bugs": {
+    "url": "https://github.com/qtisan/moerae/issues"
+  },
+  "homepage": "https://github.com/qtisan/moerae#readme",
   "engines": {
     "node": ">=8.9.4"
   },
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc4",
-    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/axios": "^5.4.1",
     "@types/graphql": "^14.0.7",
     "apollo-server-express": "^2.4.8",
     "body-parser": "^1.18.3",
     "connect": "^3.6.6",
     "connect-multiparty": "^2.2.0",
-    "consola": "^2.5.6",
+    "consola": "^2.5.7",
     "cookie-parser": "^1.4.4",
     "cross-env": "^5.2.0",
     "dotenv": "^7.0.0",
@@ -49,6 +68,7 @@
     "vuex": "^3.1.0"
   },
   "devDependencies": {
+    "@babel/register": "^7.4.0",
     "@kazupon/vue-i18n-loader": "^0.3.0",
     "@nuxtjs/eslint-config": "^0.0.1",
     "@nuxtjs/style-resources": "^0.1.2",

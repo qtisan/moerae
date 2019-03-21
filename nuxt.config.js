@@ -2,7 +2,6 @@
 const { resolve } = require('fast-url-parser');
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 const _ = require('lodash');
-const consola = require('consola');
 const pkg = require('./package');
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -97,7 +96,7 @@ module.exports = {
     includeNodeModules: true, // optional, default: false (this includes graphql-tag for node_modules folder)
     authenticationType: 'Basic', // optional, default: 'Bearer'
     errorHandler(error) {
-      consola.error('%cError', 'background: red; color: white; padding: 2px 4px; border-radius: 3px; font-weight: bold;', error.message);
+      require('consola').error(error.message);
     },
     clientConfigs: {
       default: {
